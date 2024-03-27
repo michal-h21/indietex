@@ -1,0 +1,16 @@
+\ExplSyntaxOn
+
+\renewenvironment{note}[2]{
+  \Configure{HPageTITLE+}{\detokenize{#2}}
+  \str_set:Nn \indie_date_str{#1}
+  \str_set:Nx \indie_title_str{#2}
+  \str_set:Ne \indie_title_str{\str_lowercase:f{\str_use:N\indie_title_str}}
+  \str_replace_all:Nnn\indie_title_str{~}{_}
+  \str_replace_all:Nnn\indie_title_str{?}{}
+  \str_replace_all:Nnn\indie_title_str{!}{}
+  \str_replace_all:Nnn\indie_title_str{\#}{}
+  \NextFile{#1-\str_use:N\indie_title_str.html}
+  \HPage{}
+  \leavevmode \textbf{#1~--~#2}\par\medskip
+}{\EndHPage{}\par\bigskip}
+\ExplSyntaxOff

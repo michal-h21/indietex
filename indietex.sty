@@ -1,0 +1,16 @@
+\ProvidesPackage{indietex}
+\ExplSyntaxOn
+
+\str_new:N\indie_date_str
+\str_new:N\indie_title_str
+
+
+%\NewDocumentEnvironment{note}{m m}{
+\newenvironment{note}[2]{
+  \typeout{*********** tady jsme}
+  \str_set:Nn \indie_date_str{#1}
+  \str_set:Nn \indie_title_str{#2}
+  \leavevmode \textbf{#1 -- #2}\par\medskip
+}{\par\bigskip}
+\ExplSyntaxOff
+\endinput
