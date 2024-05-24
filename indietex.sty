@@ -1,17 +1,39 @@
 \ProvidesPackage{indietex}
-\RequirePackage{datetime2}
+% \RequirePackage{datetime2}
+% trick to request completion of commands declared in this package in Neovim
+\usepackage{datetime2}
+% \RequirePackage{expl3}
+\usepackage{expl3}
 \ExplSyntaxOn
 
 \str_new:N\indie_date_str
-\str_new:N\indie_title_str
+\tl_new:N\indie_title_str
+
+
+
+\cs_new:Npn\indie_print_date:n{\textbf{\DTMusedate{indiedata}~\DTMfetchhour{indiedata}:\DTMfetchminute{indiedata}\quad}}
+\cs_new:Npn\indie_print_title:n{\textbf{\tl_use:N\indie_title_str}\par\noindent\ignorespaces}
+
+\cs_new:Npn\indie_note_before:n{\noindent\leavevmode}
+\cs_new:Npn\indie_note_start:n{}
+\cs_new:Npn\indie_note_end:n{\par\bigskip}
 
 
 %\NewDocumentEnvironment{note}{m m}{
-\newenvironment{note}[2]{
-  \typeout{*********** tady jsme}
+%% Basic IndieWeb note environment
+%% @oarg options
+%% @marg date in 
+%% @marg title datetime2 \cmd{DTMsavetimestamp} format (2024-05-15T13:19:00+03:00)
+\NewDocumentEnvironment{note}{m m o}{
+  % save timestamp for date manipulations
+  \DTMsavetimestamp{indiedata}{#1}
   \str_set:Nn \indie_date_str{#1}
-  \str_set:Nn \indie_title_str{#2}
-  \leavevmode \textbf{#1 -- #2}\par\medskip
-}{\par\bigskip}
+  \tl_set:Nn \indie_title_str{#2}
+  \indie_note_before:n
+  \indie_print_date:n
+  \indie_print_title:n
+  \indie_note_start:n
+}{\indie_note_end:n}
+
 \ExplSyntaxOff
 \endinput

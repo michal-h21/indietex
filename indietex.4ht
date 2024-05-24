@@ -1,16 +1,20 @@
+\usepackage{datetime2}
 \ExplSyntaxOn
 
-\renewenvironment{note}[2]{
-  \Configure{HPageTITLE+}{\detokenize{#2}}
-  \str_set:Nn \indie_date_str{#1}
-  \str_set:Nx \indie_title_str{#2}
-  \str_set:Ne \indie_title_str{\str_lowercase:f{\str_use:N\indie_title_str}}
-  \str_replace_all:Nnn\indie_title_str{~}{_}
-  \str_replace_all:Nnn\indie_title_str{?}{}
-  \str_replace_all:Nnn\indie_title_str{!}{}
-  \str_replace_all:Nnn\indie_title_str{\#}{}
-  \NextFile{#1-\str_use:N\indie_title_str.html}
-  \HPage{}
-  \leavevmode \textbf{#1~--~#2}\par\medskip
-}{\EndHPage{}\par\bigskip}
+% print <time> element with a timestamp
+\cs_set:Npn\indie_print_date:n{\HCode{<time~class="dt-published"~datetime="\DTMUse{indiedata}">}
+\DTMusedate{indiedata}~\DTMfetchhour{indiedata}:\DTMfetchminute{indiedata}
+\HCode{</time>}\space}
+
+% handle tagging of the note content and don't produce default formatting and paragraphs
+\cs_set:Npn\indie_note_start:n{\ifvmode\IgnorePar\fi\EndP\HCode{<div~class="h-content">}\par\ShowPar}
+\cs_set:Npn\indie_note_end:n{\ifvmode\IgnorePar\fi\EndP\HCode{</div>}}
+\cs_set:Npn\indie_note_before:n{}
+
 \ExplSyntaxOff
+
+\ConfigureEnv{note}{\ifvmode\IgnorePar\fi\EndP\HCode{<article class="h-entry">}\IgnorePar}{\ifvmode\IgnorePar\fi\EndP\HCode{</article>}}{}{}
+
+% CSS declarations
+
+\Css{.h-entry > time{font-weight:bold;}}
