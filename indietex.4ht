@@ -1,4 +1,3 @@
-\usepackage{datetime2}
 \ExplSyntaxOn
 
 % print <time> element with a timestamp
