@@ -6,7 +6,7 @@
 \HCode{</time>}\space}
 
 % handle tagging of the note content and don't produce default formatting and paragraphs
-\cs_set:Npn\indie_note_start:n{\ifvmode\IgnorePar\fi\EndP\HCode{<div~class="h-content">}\par\ShowPar}
+\cs_set:Npn\indie_note_start:n{\ifvmode\IgnorePar\fi\EndP\HCode{<div~class="e-content">}\par\ShowPar}
 \cs_set:Npn\indie_note_end:n{\ifvmode\IgnorePar\fi\EndP\HCode{</div>}}
 \cs_set:Npn\indie_note_before:n{}
 
