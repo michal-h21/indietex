@@ -28,7 +28,7 @@
   \Css{.h-entry > time{font-weight:bold;}}
   \Css{blockquote.h-cite{
       margin-left: 0rem;
-      padding-left: 1rem;
+      padding-left: 0.5rem;
       border-left: 0.3rem solid gray;
   }}
   \Css{.h-entry {
