@@ -6,11 +6,16 @@
 \HCode{</time>}\space}
 
 % handle tagging of the note content and don't produce default formatting and paragraphs
-\cs_set:Npn\indie_note_start:n{\ifvmode\IgnorePar\fi\EndP\HCode{<div~class="e-content">}\par\ShowPar}
+\cs_set:Npn\indie_note_start:n{\UseHook{indietex/notestart/before}\ifvmode\IgnorePar\fi\EndP\HCode{<div~class="e-content">}\par\ShowPar\UseHook{indietex/notestart/after}}
 \cs_set:Npn\indie_note_end:n{\ifvmode\IgnorePar\fi\EndP\HCode{</div>}}
 \cs_set:Npn\indie_note_before:n{%
   % \tl_if_empty:NF\indie_title_str{}
 }
+
+\RenewDocumentCommand\replyto{m m}{%
+\Link[#2~class="u-in-reply-to"]{}{}#1\EndLink
+}
+
 \cs_set:Npn\indie_print_title:n{\HCode{<h1~class="p-name">}\tl_use:N\indie_title_str\HCode{</h1>}\par\noindent\ignorespaces}
 
 \ExplSyntaxOff

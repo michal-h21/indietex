@@ -1,7 +1,7 @@
 \ProvidesPackage{indietex}
 % \RequirePackage{datetime2}
 % trick to request completion of commands declared in this package in Neovim
-\usepackage{datetime2}
+\usepackage{datetime2,hyperref}
 % \RequirePackage{expl3}
 \usepackage{expl3}
 \ExplSyntaxOn
@@ -15,15 +15,25 @@
 \cs_new:Npn\indie_print_title:n{\textbf{\tl_use:N\indie_title_str}\par\noindent\ignorespaces}
 
 \cs_new:Npn\indie_note_before:n{\noindent\leavevmode}
-\cs_new:Npn\indie_note_start:n{}
+\cs_new:Npn\indie_note_start:n{\UseHook{indietex/notestart/before}\UseHook{indietex/notestart/after}}
 \cs_new:Npn\indie_note_end:n{\par\bigskip}
 
+%% IndieWeb link command
+%% @marg url
+%% @marg title
+\NewDocumentCommand\replyto{m m}{%
+  \href{#2}{#1}
+}
+
+% declare some hooks that can be used in the environment
+\NewHook{indietex/notestart/before}
+\NewHook{indietex/notestart/after}
 
 %\NewDocumentEnvironment{note}{m m}{
 %% Basic IndieWeb note environment
+%% @marg date in datetime2 \cmd{DTMsavetimestamp} format (2024-05-15T13:19:00+03:00)
+%% @marg title 
 %% @oarg options
-%% @marg date in 
-%% @marg title datetime2 \cmd{DTMsavetimestamp} format (2024-05-15T13:19:00+03:00)
 \NewDocumentEnvironment{note}{m m o}{
   % save timestamp for date manipulations
   \DTMsavetimestamp{indiedata}{#1}
@@ -34,6 +44,18 @@
   \tl_if_empty:NF\indie_date_str{\indie_print_title:n}
   \indie_note_start:n
 }{\indie_note_end:n}
+
+%% IndieWeb reply
+%% https://indieweb.org/reply
+%% @marg date in datetime2 \cmd{DTMsavetimestamp} format (2024-05-15T13:19:00+03:00)
+%% @marg title
+%% @marg url
+%% 
+\NewDocumentEnvironment{reply}{m m m o}{
+  \AddToHookNext{indietex/notestart/before}{\par\noindent\replyto{#2}{#3}\par\noindent}
+  % start a note with empty title
+  \begin{note}{#1}{}[#4]%
+}{\end{note}}
 
 \ExplSyntaxOff
 \endinput
