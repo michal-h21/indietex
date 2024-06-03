@@ -15,6 +15,16 @@ local function process_note(note)
     new_note.timestamp = date_el:get_attribute("datetime")
     new_note.date = date_el:get_text()
   end
+  local title = note:query_selector("h1.p-name")[1]
+  if title then
+    new_note.title = title:get_text()
+  end
+  local replyto = note:query_selector(".u-in-reply-to")[1]
+  if replyto then
+    new_note.reply_link = replyto:get_attribute("href")
+    new_note.reply_title = replyto:get_text()
+  end
+  new_note.content = note:query_selector(".e-content")[1]
   print "-----"
   for k,v in pairs(new_note) do
     print(k,v)
