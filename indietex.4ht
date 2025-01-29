@@ -6,8 +6,9 @@
 \HCode{</time>}\space}
 
 % handle tagging of the note content and don't produce default formatting and paragraphs
-\cs_set:Npn\indie_note_start:n{\UseHook{indietex/notestart/before}\ifvmode\IgnorePar\fi\EndP\HCode{<div~class="e-content">}\par\ShowPar\UseHook{indietex/notestart/after}}
-\cs_set:Npn\indie_note_end:n{\ifvmode\IgnorePar\fi\EndP\HCode{</div>}}
+% class e-content denotes content that can use rich text formatting
+\cs_set:Npn\indie_note_start:n{\UseHook{indietex/notestart/before}\ifvmode\IgnorePar\fi\EndP\HCode{<section~class="e-content">}\par\ShowPar\UseHook{indietex/notestart/after}}
+\cs_set:Npn\indie_note_end:n{\ifvmode\IgnorePar\fi\EndP\HCode{</section>}}
 \cs_set:Npn\indie_note_before:n{%
   % \tl_if_empty:NF\indie_title_str{}
 }
@@ -22,7 +23,7 @@
 
 \AtBeginDocument{
 
-  \ConfigureEnv{note}{\ifvmode\IgnorePar\fi\EndP\HCode{<article class="h-entry">}\IgnorePar}{\ifvmode\IgnorePar\fi\EndP\HCode{</article>}}{}{}
+  \ConfigureEnv{note}{\ifvmode\IgnorePar\fi\EndP\HCode{<article class="h-entry">}\IgnorePar}{\ifvmode\IgnorePar\fi\EndP\HCode{\Hnewline</article>}}{}{}
 
 
   % redefine quote environment to produce h-cite microformat
