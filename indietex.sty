@@ -11,7 +11,7 @@
 
 
 
-\cs_new:Npn\indie_print_date:n{\textbf{\DTMusedate{indiedata}~\DTMfetchhour{indiedata}:\DTMfetchminute{indiedata}\quad}}
+\cs_new:Npn\indie_print_date:n{\textbf{\DTMusedate{indiedata}~\DTMtwodigits{\DTMfetchhour{indiedata}}:\DTMtwodigits{\DTMfetchminute{indiedata}}\quad}}
 \cs_new:Npn\indie_print_title:n{\textbf{\tl_use:N\indie_title_str}\par\noindent\ignorespaces}
 
 \cs_new:Npn\indie_note_before:n{\noindent\leavevmode}
