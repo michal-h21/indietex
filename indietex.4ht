@@ -2,7 +2,7 @@
 
 % print <time> element with a timestamp
 \cs_set:Npn\indie_print_date:n{\HCode{<time~class="dt-published"~datetime="\DTMUse{indiedata}">}
-\DTMusedate{indiedata}~\DTMfetchhour{indiedata}:\DTMfetchminute{indiedata}
+  \DTMusedate{indiedata}~\DTMfetchhour{indiedata}:\DTMtwodigits{\DTMfetchminute{indiedata}}
 \HCode{</time>}\space}
 
 % handle tagging of the note content and don't produce default formatting and paragraphs
