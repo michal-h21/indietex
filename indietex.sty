@@ -15,7 +15,7 @@
 \cs_new:Npn\indie_print_title:n{\textbf{\tl_use:N\indie_title_str}\par\noindent\ignorespaces}
 
 \cs_new:Npn\indie_note_before:n{\noindent\leavevmode}
-\cs_new:Npn\indie_note_start:n{\UseHook{indietex/notestart/before}\UseHook{indietex/notestart/after}}
+\cs_new:Npn\indie_note_start:n{\UseHook{indietex/notestart/before}\par\noindent\ignorespaces\UseHook{indietex/notestart/after}}
 \cs_new:Npn\indie_note_end:n{\par\bigskip}
 
 %% IndieWeb link command
