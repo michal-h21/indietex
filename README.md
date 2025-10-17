@@ -12,6 +12,11 @@ My idea is to create various notes a LaTeX source. Each note will be saved as a 
 - https://indieweb.org/repost
 - https://indieweb.org/note
 
+## Titles 
+
+Some post types shouldn't have titles (for example notes). This can create issues with RSS feeds, where title is needed.
+Newsboat creates dummy titles, which is not nice. We can use something like "Note published on <date>" -- this is what Molly White does.
+
 ## links
 
 - https://developer.mozilla.org/en-US/docs/Web/HTML/microformats
