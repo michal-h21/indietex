@@ -88,7 +88,7 @@ local function save_note(note)
   f:write("---\n")
   for key, value in pairs(note) do
     if not key:match("^_") then-- ignore keys starting with underscore, they are special
-      f:write(key .. ' = "' .. value .. "\"\n")
+      f:write(key .. ': "' .. value .. "\"\n")
     end
   end
   f:write("---\n")
