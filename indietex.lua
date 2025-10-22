@@ -17,7 +17,7 @@ local function process_note(note)
   local date_el = note:query_selector(".dt-published")[1]
   if date_el then
     new_note.timestamp = date_el:get_attribute("datetime")
-    new_note.date = date_el:get_text()
+    new_note.humandate = date_el:get_text()
   end
   local title = note:query_selector("h1.p-name")[1]
   if title then
